@@ -26,9 +26,10 @@
       mysql_user: name={{dbuser}} password={{dbpassword}} priv="wordpress.*:ALL" host=localhost state=present
 
     - name: Get Wordpress
-      get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz owner=root
+      get_url: url=https://ja.wordpress.org/latest-ja.tar.gz dest=/tmp/latest-ja.tar.gz owner=root
+      #get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz owner=root
     - name: Unarchive a file
-      command: tar zxf /tmp/latest.tar.gz -C /var/www/html creates=/var/www/html/wordpress
+      command: tar zxf /tmp/latest-ja.tar.gz -C /var/www/html creates=/var/www/html/wordpress
     - name: Copy wp-config.php
       template: src=./wp-config.php.j2 dest=/var/www/html/wordpress/wp-config.php mode=0666
     - name: Change Owner and Group
