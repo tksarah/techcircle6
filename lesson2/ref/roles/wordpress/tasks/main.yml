@@ -18,7 +18,7 @@
     get_url: url=http://ja.wordpress.org/latest-ja.tar.gz dest=/tmp/latest-ja.tar.gz owner=root
     #get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz owner=root
   - name: Unarchive a file
-    command: tar zxf /tmp/latest-ja.tar.gz -C /var/www/html creates={{doc_root}}/wordpress
+    command: tar zxf /tmp/latest-ja.tar.gz -C {{doc_root}} creates={{doc_root}}/wordpress
   - name: Copy wp-config.php
     template: src=wp-config.php.j2 dest={{doc_root}}/wordpress/wp-config.php mode=0666
   - name: Change Owner and Group
