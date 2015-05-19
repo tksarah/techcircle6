@@ -11,12 +11,7 @@
  
   tasks:
     - name: Install Packages
-      yum: name={{ item }} state=latest 
-      with_items:
-        - php
-        - php-mysql
-        - mariadb-server
-        - MySQL-python
+      command: rpm -Uvh /vagrant/blog_pkgs/* creates=/etc/my.cnf
 
     - name: Start and Enable mariadb
       service: name=mariadb state=started enabled=yes
