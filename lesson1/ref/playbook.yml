@@ -29,7 +29,7 @@
       get_url: url=http://ja.wordpress.org/latest-ja.tar.gz dest=/tmp/latest-ja.tar.gz owner=root
       #get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz owner=root
     - name: Unarchive a file
-      unarchive: src=/tmp/latest-ja.tar.gz dest=/var/www/html copy=no
+      unarchive: src=/tmp/latest-ja.tar.gz dest=/var/www/html copy=no creates=/var/www/html/wordpress # version 1.6 <
     - name: Copy wp-config.php
       template: src=./wp-config.php.j2 dest=/var/www/html/wordpress/wp-config.php mode=0666
     - name: Change Owner and Group
