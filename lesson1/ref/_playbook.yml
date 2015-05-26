@@ -11,7 +11,12 @@
  
   tasks:
     - name: Install Packages
-      command: rpm -Uvh /vagrant/blog_pkgs/* creates=/etc/my.cnf
+      yum: name={{ item }} state=latest 
+      with_items:
+        - php
+        - php-mysql
+        - mariadb-server
+        - MySQL-python
 
     - name: Start and Enable mariadb
       service: name=mariadb state=started enabled=yes
@@ -24,11 +29,11 @@
       get_url: url=http://ja.wordpress.org/latest-ja.tar.gz dest=/tmp/latest-ja.tar.gz owner=root
       #get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz owner=root
     - name: Unarchive a file
-      command: tar zxf /tmp/latest-ja.tar.gz -C /var/www/html creates=/var/www/html/wordpress
+      unarchive: src=/tmp/latest-ja.tar.gz dest=/var/www/html copy=no creates=/var/www/html/wordpress # version 1.6 <
     - name: Copy wp-config.php
       template: src=./wp-config.php.j2 dest=/var/www/html/wordpress/wp-config.php mode=0666
     - name: Change Owner and Group
-      command: chown -R apache.apache /var/www/html
+      file: path=/var/www/html state=directory recurse=yes owner=apache group=apache
     - name: Reset value of http_request_timeout
       shell: sed -i -e "s/'http_request_timeout', 5/'http_request_timeout', 20/g" /var/www/html/wordpress/wp-includes/class-http.php
 
