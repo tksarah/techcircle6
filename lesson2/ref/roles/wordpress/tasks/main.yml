@@ -16,11 +16,11 @@
   - name: Get WordPress
     get_url: url=http://ja.wordpress.org/latest-ja.tar.gz dest=/tmp/latest-ja.tar.gz owner=root
   - name: Unarchive a file
-    command: tar zxf /tmp/latest-ja.tar.gz -C {{ doc_root }} creates={{ doc_root }}/wordpress
+    unarchive: src=/tmp/latest-ja.tar.gz dest={{ doc_root }} copy=no creates={{ doc_root }}/wordpress # version 1.6 <
   - name: Copy wp-config.php
     template: src=wp-config.php.j2 dest={{ doc_root }}/wordpress/wp-config.php mode=0666
   - name: Change Owner and Group
-    command: chown -R apache.apache {{ doc_root }}
+    file: path={{ doc_root }} state=directory recurse=yes owner=apache group=apache
 
   - name: Start and Enable httpd
     service: name=httpd state=started enabled=yes
