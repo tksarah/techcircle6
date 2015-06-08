@@ -16,7 +16,7 @@
   - name: Get WordPress
     get_url: url=http://ja.wordpress.org/latest-ja.tar.gz dest=/tmp/latest-ja.tar.gz owner=root
   - name: Unarchive a file
-    unarchive: src=/tmp/latest-ja.tar.gz dest={{ doc_root }} copy=no creates={{ doc_root }}/wordpress # version 1.6 <
+    command: tar zxf /tmp/latest-ja.tar.gz -C /var/www/html creates=/var/www/html/wordpress
   - name: Copy wp-config.php
     template: src=wp-config.php.j2 dest={{ doc_root }}/wordpress/wp-config.php mode=0666
   - name: Change Owner and Group
